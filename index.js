@@ -14,32 +14,21 @@ const users= [
     {id:2 , name :'jane smith'},
     
 ];
-/**installer le routage pour voir */
+
+/**Rendu dans le navigateur via le chargement du template index.html à l'adresse  http://localhost:4000/ */
+const path = require('path');
+
+
+app.get('/', (req, res) => {
+
+    res.sendFile(path.join(__dirname, 'index.html'));
+
+});
+/**voir routage */
 app.get('/api/users', (req, res)=>{
+
     res.json(users);
-})
-/**deuxieme pages routage */
-app.get('/api/users/:id', (req, res)=>{
-    const user = users.find(u =>u.id === parseInt(req.params.id));
-    if (!user) return res.status(404).send('user not found');
-    res.json(user);
-})
-/**ajout nouvel id */
-app.post('/api/users',(req , res)=>{
-    const {name} = req.body
-    const newUser ={
-        id: users.lenght + 1,
-        name
-    };
-    users.push(newUser)
-    res.status(201).json(newUser);
-})
-/**supprimert un id */
-app.delete('/api/users/:id', (req , res)=>{
-    const userIndex = users.findIndex(u => u.id === parseInt(req.params.id));
-    if (userIndex === -1) return res.status(404).send('user not found');
-    users.splice(userIndex, 1);
-    res.status(204).send();
+
 })
 
 /**voir serveur */

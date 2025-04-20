@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Liste des utilisateurs</title>
+
+</head>
+
+<body>
+
+    <h1>Utilisateurs</h1>
+
+    <ul id="user-list"></ul>
+
+
+    <script>
+
+        // Appeler l'API
+
+        fetch('http://localhost:4000/api/users')
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                const userList = document.getElementById('user-list');
+
+                data.forEach(user => {
+
+                    const li = document.createElement('li');
+
+                    li.textContent = `${user.id} - ${user.name}`;
+
+                    userList.appendChild(li);
+
+                });
+
+            })
+
+            .catch(error => console.error('Erreur lors du fetch:', error));
+
+    </script>
+
+</body>
+
+</html>
